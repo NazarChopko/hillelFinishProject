@@ -1,0 +1,48 @@
+extends layout
+
+block head
+    title My posts
+    link(rel="stylesheet" href="/myPosts/myPosts.css")
+block body 
+    .wrapper
+        ul 
+            if posts.length > 0
+                each post in posts 
+                    li
+                        .title_wrap
+                            p.title= post.title 
+                            p.date= moment(post.createdAt).format('DD/MM/YYYY HH:mm',)
+                        p.desc= post.text
+                        if post.comments.length > 0
+                            .comments 
+                                .title Comments
+                                each comment in post.comments 
+                                   .comment 
+                                        .info
+                                            .user 
+                                                img(src="/user.svg", alt="userImage")
+                                                span= comment.author.email 
+                                            .date 
+                                                p= moment(comment.createdAt).format('DD/MM/YYYY HH:mm',)
+                                        .text= comment.text
+                        button.deletePost(type='button' id=`${post.id}`) Delete
+                            
+            else
+                .noPosts You don't have any posts   
+        form.addPostForm(method='POST') 
+            .control 
+                label(for="title") Title
+                input(name="title" id="title" type="title" value=data && data.title placeholder="At least 4 symbols" required)
+                if errors && errors.title 
+                     p.error= errors.title
+            .control 
+                label(for="text") Content
+                textarea(name="text" rows="5" id="text" value=data && data.text placeholder="text" required) 
+                if errors && errors.text 
+                    p.error= errors.text
+                button(type='submit') Add post
+    script(src='/myPosts/deletePost.js' type='module')
+                
+                    
+                    
+    

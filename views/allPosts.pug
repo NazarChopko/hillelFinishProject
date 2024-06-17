@@ -1,0 +1,38 @@
+extends layout
+
+block head
+    title Home
+    link(rel="stylesheet" href="/allPosts/allPosts.css")
+block body 
+    .wrapper
+        ul 
+            if posts.length > 0
+                each post in posts 
+                    li
+                        p.title= post.title 
+                        p.desc= post.text
+                        .comments 
+                            p.title Comments
+                            .comments_content 
+                                if post.comments.length > 0
+                                each comment in post.comments
+                                        .comment 
+                                            .info
+                                                .user 
+                                                    img(src="/user.svg", alt="userImage")
+                                                    span= comment.author.email 
+                                                .date 
+                                                    p= moment(comment.createdAt).format('DD/MM/YYYY HH:mm',)
+                                            .text= comment.text
+                                else 
+                                    .no_content No comments
+                                if isUserLogged
+                                    .text_field 
+                                        textarea.textarea(name="comment" rows="4" placeholder='Your comment' id=`${post.id}`) 
+                                    button.add_comment(id=`${post.id}`) Add comment
+            else 
+                .noPosts You don't have any posts 
+    script(src='/allPosts/allPosts.js' type='module')
+                    
+                    
+    

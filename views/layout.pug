@@ -1,0 +1,13 @@
+html
+    head 
+        block head
+        link(rel="stylesheet" href="/normilize.css")
+        
+    body
+    header.header 
+        nav.navbar 
+            ul 
+                each item in isUserLogged ?[{title:'Home',href:'/api/'},{title:'My post',href:'/api/posts'},{title:'Log out',href:'/api/auth/logout'}] : [{title:'Home',href:'/api/'},{title:'Sign up',href:'/api/auth/signup'},{title:'Sign in',href:'/api/auth/signin'}] 
+                    li
+                        a(href=`${item.href}`)= item.title
+    block body

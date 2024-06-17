@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header .navbar ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 100px;
+  list-style: none;
+  background-color: black;
+}
+
+.header .navbar ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
+  transform: scale(1);
+  font-weight: 500;
+  transition: all 0.3s ease-out;
+}
+
+.header .navbar ul li a:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
+}

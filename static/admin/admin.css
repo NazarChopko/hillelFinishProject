@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px 50px;
+  overflow-y: hidden;
+  gap: 10px;
+}
+
+.wrapper .user_container {
+  display: flex;
+  padding: 10px;
+  gap: 5px;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.wrapper .user_container p {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.wrapper .user_container button {
+  background-color: black;
+  color: white;
+  font-size: 24px;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+}

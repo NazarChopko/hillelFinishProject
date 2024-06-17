@@ -1,0 +1,27 @@
+extends layout
+
+block head
+    title= title 
+    link(rel="stylesheet" href="/auth/auth.css")
+block body 
+    .wrapper 
+        .wrapper_form 
+            form.signup(method='POST') 
+                .control 
+                    label(for="email") Email
+                    input(name="email" id="email" type="text" value=data && data.email placeholder="test@gmail.com" required)
+                    if errors && errors.email 
+                        p.error= errors.email
+                .control 
+                    label(for="password") Password
+                    input(name="password" id="password" type="password" value=data && data.password placeholder="password" required)
+                    if errors && errors.password 
+                        p.error= errors.password
+                if type && type == 'signup'
+                    .checkbox 
+                        label(for="role") Admin
+                        input(name="role" id="role" type='checkbox')
+                button(type='submit')= title
+                if errors && errors.message
+                    p.error= errors.message
+    
