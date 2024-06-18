@@ -133,7 +133,7 @@ dist
 .pnp.*
 
 #vscode
-.vscode/
+.vscode
 
 #dev database
 dev.db
