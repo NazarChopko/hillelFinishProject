@@ -7,7 +7,7 @@ const authValidator = async (req, res, next) => {
     await authSchema.validate(req.body, { abortEarly: false });
     next();
   } catch (error) {
-    const errors = combineErrors(errors);
+    const errors = combineErrors(error);
 
     next(new ValidateError({ errors }));
   }

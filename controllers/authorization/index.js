@@ -34,7 +34,7 @@ const renderSigupForm = (req, res) => {
     }
     res.render('auth', { title: 'Sign up', isUserLogged, type: 'signup' });
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 

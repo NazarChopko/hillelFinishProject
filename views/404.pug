@@ -6,5 +6,10 @@ block head
 block body 
     .wrapper 
        .title 404
-       p Page not found
+        if message
+            p= message
+        else
+            p Page not found
+
+
     

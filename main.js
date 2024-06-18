@@ -5,7 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const rootRouter = require('./routes');
 const cookieParser = require('cookie-parser');
-const checkIsUserLogged = require('./middleware/checkUser/checkIsUserLogged');
+const transformReq = require('./middleware/transformReq/transformReq');
 
 const server = express();
 const router = express.Router();
@@ -19,7 +19,7 @@ server.use(cookieParser());
 server.use(express.static(__dirname + '/static'));
 server.use(morganConsoleLogger);
 server.use('/api', rootRouter(router));
-server.use('/api', checkIsUserLogged, (req, res) => {
+server.use('/api', transformReq, (req, res) => {
   res.render('404', { isUserLogged: req.token });
 });
 

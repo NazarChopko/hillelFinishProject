@@ -21,7 +21,6 @@ const deleteUserController = async (req, res) => {
     await deleteUser(userId);
     res.status(200).json({ message: 'User has been deleted!' });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ messgae: 'Internal server error!' });
   }
 };

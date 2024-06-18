@@ -33,10 +33,11 @@ class BadRequest extends Error {
 }
 
 class Forbidden extends Error {
-  constructor({ msg = 'Forbidden' }) {
+  constructor({ msg = 'Forbidden', errors = {} }) {
     super(msg);
 
     this.status = 403;
+    this.errors = errors;
   }
 }
 
