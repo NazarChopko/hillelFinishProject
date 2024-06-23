@@ -1,15 +1,12 @@
-const { Forbidden } = require('../../errors/error-exception');
-
 const redirectMiddleware = (err, req, res, next) => {
-  // if(err instanceof Forbidden){
-  //     return res
-  // }
-  const isUserLogged = req.token;
+  const { isUserLogged } = req.__pageContext;
+
   res.render('myPosts', {
     data: req.body,
     errors: err.errors,
     isUserLogged,
-    posts: req.body.posts || []
+    posts: req.body.posts || [],
+    moment: require('moment')
   });
 };
 

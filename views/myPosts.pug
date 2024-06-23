@@ -32,7 +32,7 @@ block body
         form.addPostForm(method='POST') 
             .control 
                 label(for="title") Title
-                input(name="title" id="title" type="title" value=data && data.title placeholder="At least 4 symbols" required)
+                input(name="title" id="title" type="title" value=data && data.title placeholder="At least 10 symbols" required)
                 if errors && errors.title 
                      p.error= errors.title
             .control 

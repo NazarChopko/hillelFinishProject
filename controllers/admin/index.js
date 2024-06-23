@@ -2,14 +2,13 @@ const { getAllUsers, deleteUser } = require('../../services/admin.service');
 
 const getAllUsersController = async (req, res) => {
   try {
-    const isUserLogged = req.token;
-    const role = req.role;
+    const { role, isUserLogged } = req.__pageContext;
 
-    if (role === 'false' || !isUserLogged) {
+    if (!role || !isUserLogged) {
       res.redirect('/api/');
     }
     const users = await getAllUsers();
-    res.render('admin', { isUserLogged: !!isUserLogged, users });
+    res.render('admin', { isUserLogged, users, role });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error!' });
   }

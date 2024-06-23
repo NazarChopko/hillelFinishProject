@@ -1,13 +1,14 @@
 const { getAllPosts } = require('../../services/posts.service');
 
-const renderAllPosts = async (req, res, next) => {
+const renderAllPosts = async (req, res) => {
   try {
+    const { role = false, isUserLogged = false, userId = null } = req.__pageContext;
     const posts = await getAllPosts();
-    const isUserLogged = Number(req.token);
     res.render('allPosts', {
       isUserLogged,
       posts: posts || [],
-      moment: require('moment')
+      moment: require('moment'),
+      role
     });
   } catch (error) {}
 };

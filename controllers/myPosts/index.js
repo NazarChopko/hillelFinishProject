@@ -3,14 +3,15 @@ const { getPostsByUserId, addPostByUserId, deletePostByUserId } = require('../..
 
 const renderMyPosts = async (req, res) => {
   try {
-    const userId = Number(req.token);
+    const { userId, isUserLogged, role } = req.__pageContext;
+
     const posts = await getPostsByUserId(userId);
     res.render('myPosts', {
-      isUserLogged: !!userId,
+      isUserLogged,
+      role,
       posts,
       moment: require('moment')
     });
-    res.status(200);
   } catch (error) {
     res.status(404);
   }
@@ -18,7 +19,7 @@ const renderMyPosts = async (req, res) => {
 
 const addPostController = async (req, res) => {
   try {
-    const userId = Number(req.token);
+    const { userId } = req.__pageContext;
     if (!userId) {
       res.redirect('/api/auth/signin');
     }
@@ -31,7 +32,7 @@ const addPostController = async (req, res) => {
 
 const deletePostController = async (req, res) => {
   try {
-    const userId = Number(req.token);
+    const { userId } = req.__pageContext;
 
     if (!userId) {
       throw new Forbidden({ msg: 'You are not loggen in!' });

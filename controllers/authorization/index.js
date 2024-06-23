@@ -28,7 +28,7 @@ const signup = async (req, res) => {
 
 const renderSigupForm = (req, res) => {
   try {
-    const isUserLogged = req.token;
+    const { isUserLogged } = req.__pageContext;
     if (isUserLogged) {
       return res.redirect('/api/');
     }
@@ -38,7 +38,7 @@ const renderSigupForm = (req, res) => {
   }
 };
 
-const signin = async (req, res) => {
+const signin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await findUserByEmail(email);
@@ -52,22 +52,8 @@ const signin = async (req, res) => {
     if (!checkPassword) {
       return res.render('auth', { data: req.body, title: 'Sign in', errors: { message: 'Wrong password!' } });
     }
-    res.cookie('token', user.id);
-    res.cookie('role', user.role);
-    res.redirect('/api/');
-  } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-const logout = (req, res) => {
-  try {
-    const isUserLogged = req.token;
-    if (isUserLogged) {
-      res.clearCookie('token');
-      res.clearCookie('role');
-    }
-    res.redirect('/api/auth/signin');
+    req.__authContext = { userId: user.id, role: !!user.role };
+    next();
   } catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
@@ -75,7 +61,7 @@ const logout = (req, res) => {
 
 const renderSiginForm = (req, res) => {
   try {
-    const isUserLogged = req.token;
+    const { isUserLogged } = req.__pageContext;
     if (isUserLogged) {
       return res.redirect('/api/');
     }
@@ -85,4 +71,4 @@ const renderSiginForm = (req, res) => {
   }
 };
 
-module.exports = { signup, renderSigupForm, signin, renderSiginForm, logout };
+module.exports = { signup, renderSigupForm, signin, renderSiginForm };

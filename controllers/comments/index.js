@@ -3,15 +3,15 @@ const { addCommentByUserId } = require('../../services/myPosts.service');
 
 const addNewComment = async (req, res) => {
   try {
-    const token = req.token;
+    const { userId, isUserLogged } = req.__pageContext;
     const { postId, text } = req.body;
-    if (!token) {
+    if (!isUserLogged) {
       throw new Forbidden({ msg: 'Forbidden! You are not Logged in!' });
     }
     if (!text) {
       throw new BadRequest({ msg: 'Comment cant be empty!' });
     }
-    await addCommentByUserId(text, postId, token);
+    await addCommentByUserId(text, postId, userId);
     res.redirect('/api/posts');
   } catch (error) {
     console.log(error);

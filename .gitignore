@@ -135,5 +135,3 @@ dist
 #vscode
 .vscode
 
-#dev database
-dev.db
