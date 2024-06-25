@@ -1,4 +1,4 @@
-﻿services:
+services:
   server:
     build:
       context: .
@@ -22,7 +22,7 @@
       - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=posts
-      - POSTGRES_PASSWORD_FILE=pass
+      - POSTGRES_PASSWORD=pass
     expose:
       - 5432
     ports:
